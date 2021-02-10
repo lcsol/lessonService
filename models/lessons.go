@@ -75,6 +75,40 @@ func (lessons *LessonCollection) UpdateInfo(id string, lessonInfo LessonInfo) (*
 	return &updatedDoc, err
 }
 
+// UpdateModelItem add a model to a lesson
+func (lessons *LessonCollection) UpdateModelItem(id string, model ModelItem) (*mongo.UpdateResult, error) {
+	ID, err := primitive.ObjectIDFromHex(id)
+	if err != nil {
+		return nil, err
+	}
+	update := bson.M{"$push": bson.M{"models": bson.M{
+		"modelId":  model.ModelID,
+		"position": model.Position,
+	}}}
+	updateResult, err := lessons.coll.UpdateOne(context.TODO(), bson.M{"_id": ID}, update)
+	if err != nil {
+		return nil, err
+	}
+	return updateResult, err
+}
+
+// UpdateLabel add a label to a lesson
+func (lessons *LessonCollection) UpdateLabel(id string, label Label) (*mongo.UpdateResult, error) {
+	ID, err := primitive.ObjectIDFromHex(id)
+	if err != nil {
+		return nil, err
+	}
+	update := bson.M{"$push": bson.M{"labels": bson.M{
+		"content":  label.Content,
+		"position": label.Position,
+	}}}
+	updateResult, err := lessons.coll.UpdateOne(context.TODO(), bson.M{"_id": ID}, update)
+	if err != nil {
+		return nil, err
+	}
+	return updateResult, err
+}
+
 // DeleteLesson deletes a lesson from database
 func (lessons *LessonCollection) DeleteLesson(id string) (*mongo.DeleteResult, error) {
 	ID, err := primitive.ObjectIDFromHex(id)

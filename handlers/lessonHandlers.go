@@ -97,6 +97,52 @@ func (lh *LessonHandler) UpdateLessonInfo(rw http.ResponseWriter, r *http.Reques
 	}
 }
 
+// UpdateLessonModels calls UpdateModelItem func from lessons to add a model to a lesson
+func (lh *LessonHandler) UpdateLessonModels(rw http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	id := vars["id"]
+	var model models.ModelItem
+	err := json.NewDecoder(r.Body).Decode(&model)
+	if err != nil {
+		lh.serverError(rw, err)
+	}
+	validate := validator.New()
+	err = validate.Struct(model)
+	if err != nil {
+		validationErrors := err.(validator.ValidationErrors)
+		lh.serverError(rw, validationErrors)
+	} else {
+		updateResult, err := lh.lessons.UpdateModelItem(id, model)
+		if err != nil {
+			lh.serverError(rw, err)
+		}
+		lh.infoLog.Printf("Updated %v documents.\n", updateResult.ModifiedCount)
+	}
+}
+
+// UpdateLessonLabels calls UpdateLabel func from lessons to add a label to a lesson
+func (lh *LessonHandler) UpdateLessonLabels(rw http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	id := vars["id"]
+	var label models.Label
+	err := json.NewDecoder(r.Body).Decode(&label)
+	if err != nil {
+		lh.serverError(rw, err)
+	}
+	validate := validator.New()
+	err = validate.Struct(label)
+	if err != nil {
+		validationErrors := err.(validator.ValidationErrors)
+		lh.serverError(rw, validationErrors)
+	} else {
+		updateResult, err := lh.lessons.UpdateLabel(id, label)
+		if err != nil {
+			lh.serverError(rw, err)
+		}
+		lh.infoLog.Printf("Updated %v documents.\n", updateResult.ModifiedCount)
+	}
+}
+
 // Delete calls DeleteLesson func from lessons to delete a lesson in database
 func (lh *LessonHandler) Delete(rw http.ResponseWriter, r *http.Request) {
 	id := mux.Vars(r)["id"]

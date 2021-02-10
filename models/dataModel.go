@@ -34,7 +34,7 @@ type ModelItem struct {
 
 // A Label includes the content and position of a label in lesson
 type Label struct {
-	Content  string   `bson:"content"`
+	Content  string   `bson:"content" validate:"required"`
 	Position position `bson:"position"`
 }
 
