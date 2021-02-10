@@ -40,8 +40,9 @@ func main() {
 	infoLog.Printf("Database connection established")
 
 	// Initialize a new instance of lessonHandler
-	collection := models.NewLessonCollection(client.Database(database).Collection(collection))
-	lessonHandler := handlers.NewLessonHandler(infoLog, errLog, collection)
+	lessons := models.NewLessonCollection(client.Database(database).Collection(lessonCollection))
+	models := models.NewLessonCollection(client.Database(database).Collection(modelCollection))
+	lessonHandler := handlers.NewLessonHandler(infoLog, errLog, lessons, models)
 
 	// Initialize a new http.Server
 	serverURI := fmt.Sprintf("%s:%d", serverAddr, serverPort)

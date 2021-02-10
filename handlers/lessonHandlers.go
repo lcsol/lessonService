@@ -17,11 +17,12 @@ type LessonHandler struct {
 	infoLog *log.Logger
 	errLog  *log.Logger
 	lessons *models.LessonCollection
+	models  *models.ModelCollection
 }
 
 // NewLessonHandler creates a new lesson handler
-func NewLessonHandler(info *log.Logger, err *log.Logger, lessons *models.LessonCollection) *LessonHandler {
-	return &LessonHandler{info, err, lessons}
+func NewLessonHandler(info *log.Logger, err *log.Logger, lessons *models.LessonCollection, models *models.ModelCollection) *LessonHandler {
+	return &LessonHandler{info, err, lessons, models}
 }
 
 // All calls GetAll func from labs to retrive all labs info from database
@@ -151,4 +152,18 @@ func (lh *LessonHandler) Delete(rw http.ResponseWriter, r *http.Request) {
 		lh.serverError(rw, err)
 	}
 	lh.infoLog.Printf("Deleted %d lesson", deleteRes.DeletedCount)
+}
+
+// GetModel calls GetModelByID func from models to retrive a model by id
+func (lh *LessonHandler) GetModel(rw http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	id := vars["id"]
+	model, err := lh.models.GetModelByID(id)
+	if err != nil {
+		lh.serverError(rw, err)
+	}
+	err = json.NewEncoder(rw).Encode(model)
+	if err != nil {
+		lh.serverError(rw, err)
+	}
 }

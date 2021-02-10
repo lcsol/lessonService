@@ -12,5 +12,7 @@ func (lh *LessonHandler) Routes() *mux.Router {
 	router.HandleFunc("/lessons/models/{id}", lh.UpdateLessonModels).Methods("PUT")
 	router.HandleFunc("/lessons/labels/{id}", lh.UpdateLessonLabels).Methods("PUT")
 	router.HandleFunc("/lessons/{id}", lh.Delete).Methods("DELETE")
+
+	router.HandleFunc("/models/{id}", lh.GetModel).Methods("GET")
 	return router
 }
