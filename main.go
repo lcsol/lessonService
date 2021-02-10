@@ -41,7 +41,7 @@ func main() {
 
 	// Initialize a new instance of lessonHandler
 	lessons := models.NewLessonCollection(client.Database(database).Collection(lessonCollection))
-	models := models.NewLessonCollection(client.Database(database).Collection(modelCollection))
+	models := models.NewModelCollection(client.Database(database).Collection(modelCollection))
 	lessonHandler := handlers.NewLessonHandler(infoLog, errLog, lessons, models)
 
 	// Initialize a new http.Server
