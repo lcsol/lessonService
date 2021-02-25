@@ -8,6 +8,9 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
+type lessonRepository interface {
+}
+
 // LessonCollection represent a mongodb session with a lesson data model
 type LessonCollection struct {
 	coll *mongo.Collection

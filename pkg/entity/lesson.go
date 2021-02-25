@@ -1,4 +1,4 @@
-package models
+package entity
 
 import (
 	"time"
@@ -8,9 +8,9 @@ import (
 
 // A Lesson represents a lesson record in database
 type Lesson struct {
-	ID          primitive.ObjectID `bson:"_id,omitempty" validate:"isdefault"`
-	Name        string             `bson:"name,omitempty" validate:"required"`
-	Description string             `bson:"description,omitempty"`
+	ID          primitive.ObjectID `json:"_id,omitempty" bson:"_id,omitempty" validate:"isdefault"`
+	Name        string             `json:"name,omitempty" bson:"name,omitempty" validate:"required"`
+	Description string             `json:"description,omitempty" bson:"description,omitempty"`
 	CreatedOn   time.Time          `bson:"createdOn,omitempty"`
 	CreatorID   primitive.ObjectID `bson:"creatorId,omitempty"`
 	Models      []ModelItem        `bson:"models" validate:"required"`
@@ -56,13 +56,4 @@ type Question struct {
 	Description      string   `bson:"description"`
 	Choices          []string `bson:"choices"`
 	CorrectChoiceIdx int      `bson:"correctChoiceIdx"`
-}
-
-// A Model represents a model record in database
-type Model struct {
-	ID          primitive.ObjectID `bson:"_id,omitempty" validate:"isdefault"`
-	Name        string             `bson:"name,omitempty" validate:"required"`
-	Description string             `bson:"description,omitempty"`
-	Location    string             `bson:"location,omitempty" validate:"required"`
-	Tag         []string           `bson:"tag,omitempty"`
 }
