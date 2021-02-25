@@ -1,8 +1,10 @@
 package main
 
 import (
+	"context"
 	"log"
 	"os"
+	"time"
 
 	"github.com/lcsol/lessonService/cmd/helper"
 	"github.com/lcsol/lessonService/pkg/config"
@@ -17,12 +19,33 @@ func main() {
 		conf                                 = config.Get()
 		infoLog       *log.Logger            = log.New(os.Stdout, "INFO\t", log.Ldate|log.Ltime)
 		errLog        *log.Logger            = log.New(os.Stderr, "ERROR\t", log.Ldate|log.Ltime|log.Lshortfile)
-		client                               = helper.Connect(infoLog, errLog, conf.MongoURL)
+		client, err                          = helper.Connect(errLog, conf.MongoURL)
 		lessonRepo    repo.LessonRepository  = repo.NewLessonCollection(client.Database(conf.Database).Collection(conf.LessonCollection))
 		getting       getting.Service        = getting.NewService(lessonRepo)
 		lessonHandler handlers.LessonHandler = handlers.NewLessonHandler(infoLog, errLog, getting)
-		r                                    = router.Routes(lessonHandler)
+		router                               = router.Routes(lessonHandler)
 	)
+	ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)
+	defer cancel()
 
-	helper.Serve(errLog, infoLog, r.router, conf.GetServerURL())
+	err = client.Connect(ctx)
+	if err != nil {
+		errLog.Fatal(err)
+	}
+
+	defer func() {
+		if err = client.Disconnect(ctx); err != nil {
+			panic(err)
+		}
+	}()
+
+	infoLog.Printf("Database connection established")
+
+	defer func() {
+		if err := client.Disconnect(ctx); err != nil {
+			panic(err)
+		}
+	}()
+
+	helper.Serve(errLog, infoLog, router, conf.GetServerURL())
 }

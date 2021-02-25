@@ -1,7 +1,6 @@
 package helper
 
 import (
-	"context"
 	"log"
 	"net/http"
 	"time"
@@ -12,28 +11,13 @@ import (
 )
 
 // Connect starts a mongoDB client
-func Connect(infoLog *log.Logger, errLog *log.Logger, mongoURL string) *mongo.Client {
+func Connect(errLog *log.Logger, mongoURL string) (*mongo.Client, error) {
 	client, err := mongo.NewClient(options.Client().ApplyURI(mongoURL))
 	if err != nil {
 		errLog.Fatal(err)
 	}
-	ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)
-	defer cancel()
 
-	err = client.Connect(ctx)
-	if err != nil {
-		errLog.Fatal(err)
-	}
-
-	defer func() {
-		if err = client.Disconnect(ctx); err != nil {
-			panic(err)
-		}
-	}()
-
-	infoLog.Printf("Database connection established")
-
-	return client
+	return client, err
 }
 
 // Serve initializes a new http.Server
