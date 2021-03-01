@@ -5,7 +5,7 @@ import (
 	"log"
 	"net/http"
 
-	getting "github.com/lcsol/lessonService/pkg/services/getLesson"
+	getting "github.com/inspiritvr-organization/lesson-service-draft/pkg/services/getLesson"
 
 	"github.com/gorilla/mux"
 )

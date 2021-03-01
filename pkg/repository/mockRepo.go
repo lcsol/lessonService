@@ -1,7 +1,7 @@
 package repository
 
 import (
-	"github.com/lcsol/lessonService/pkg/entity"
+	"github.com/inspiritvr-organization/lesson-service-draft/pkg/entity"
 	"github.com/stretchr/testify/mock"
 )
 

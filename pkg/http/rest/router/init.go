@@ -2,7 +2,7 @@ package router
 
 import (
 	"github.com/gorilla/mux"
-	"github.com/lcsol/lessonService/pkg/http/rest/handlers"
+	"github.com/inspiritvr-organization/lesson-service-draft/pkg/http/rest/handlers"
 )
 
 // Routes returns a router matching incoming requests to their respective handler

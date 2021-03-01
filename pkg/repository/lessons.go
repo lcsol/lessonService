@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/lcsol/lessonService/pkg/entity"
+	"github.com/inspiritvr-organization/lesson-service-draft/pkg/entity"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"

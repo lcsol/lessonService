@@ -1,6 +1,6 @@
 package services
 
-import "github.com/lcsol/lessonService/pkg/entity"
+import "github.com/inspiritvr-organization/lesson-service-draft/pkg/entity"
 
 type LessonService interface {
 	FindAll() ([]entity.Lesson, error)

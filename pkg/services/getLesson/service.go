@@ -1,8 +1,8 @@
 package getting
 
 import (
-	"github.com/lcsol/lessonService/pkg/entity"
-	repo "github.com/lcsol/lessonService/pkg/repository"
+	"github.com/inspiritvr-organization/lesson-service-draft/pkg/entity"
+	repo "github.com/inspiritvr-organization/lesson-service-draft/pkg/repository"
 )
 
 // Service provides access to the lesson repository

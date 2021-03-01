@@ -6,12 +6,12 @@ import (
 	"os"
 	"time"
 
-	"github.com/lcsol/lessonService/cmd/helper"
-	"github.com/lcsol/lessonService/pkg/config"
-	"github.com/lcsol/lessonService/pkg/http/rest/handlers"
-	"github.com/lcsol/lessonService/pkg/http/rest/router"
-	repo "github.com/lcsol/lessonService/pkg/repository"
-	getting "github.com/lcsol/lessonService/pkg/services/getLesson"
+	"github.com/inspiritvr-organization/lesson-service-draft/cmd/helper"
+	"github.com/inspiritvr-organization/lesson-service-draft/pkg/config"
+	"github.com/inspiritvr-organization/lesson-service-draft/pkg/http/rest/handlers"
+	"github.com/inspiritvr-organization/lesson-service-draft/pkg/http/rest/router"
+	repo "github.com/inspiritvr-organization/lesson-service-draft/pkg/repository"
+	getting "github.com/inspiritvr-organization/lesson-service-draft/pkg/services/getLesson"
 )
 
 func main() {

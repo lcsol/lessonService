@@ -1,4 +1,4 @@
-module github.com/lcsol/lessonService
+module github.com/inspiritvr-organization/lesson-service-draft
 
 go 1.15
 

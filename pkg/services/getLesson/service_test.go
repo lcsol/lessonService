@@ -3,8 +3,8 @@ package getting
 import (
 	"testing"
 
-	"github.com/lcsol/lessonService/pkg/entity"
-	repo "github.com/lcsol/lessonService/pkg/repository"
+	"github.com/inspiritvr-organization/lesson-service-draft/pkg/entity"
+	repo "github.com/inspiritvr-organization/lesson-service-draft/pkg/repository"
 	"github.com/stretchr/testify/assert"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )

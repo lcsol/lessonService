@@ -1,6 +1,6 @@
 package repository
 
-import "github.com/lcsol/lessonService/pkg/entity"
+import "github.com/inspiritvr-organization/lesson-service-draft/pkg/entity"
 
 // LessonRepository is an interface for any repository implementation
 type LessonRepository interface {
