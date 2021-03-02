@@ -11,6 +11,7 @@ import (
 	"github.com/inspiritvr-organization/lesson-service-draft/pkg/http/rest/handlers"
 	"github.com/inspiritvr-organization/lesson-service-draft/pkg/http/rest/router"
 	repo "github.com/inspiritvr-organization/lesson-service-draft/pkg/repository"
+	adding "github.com/inspiritvr-organization/lesson-service-draft/pkg/services/addLesson"
 	getting "github.com/inspiritvr-organization/lesson-service-draft/pkg/services/getLesson"
 )
 
@@ -22,7 +23,8 @@ func main() {
 		client, err                          = helper.Connect(errLog, conf.MongoURL)
 		lessonRepo    repo.LessonRepository  = repo.NewLessonCollection(client.Database(conf.Database).Collection(conf.LessonCollection))
 		getting       getting.Service        = getting.NewService(lessonRepo)
-		lessonHandler handlers.LessonHandler = handlers.NewLessonHandler(infoLog, errLog, getting)
+		adding        adding.Service         = adding.NewService(lessonRepo)
+		lessonHandler handlers.LessonHandler = handlers.NewLessonHandler(infoLog, errLog, getting, adding)
 		router                               = router.Routes(lessonHandler)
 	)
 	ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)

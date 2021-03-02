@@ -10,6 +10,7 @@ func Routes(lh handlers.LessonHandler) *mux.Router {
 	r := NewMuxRouter()
 	r.GET("/lessons", lh.All)
 	r.GET("/lessons/{id}", lh.GetLesson)
+	r.POST("/lessons", lh.Create)
 
 	return r.ReturnRouter()
 }

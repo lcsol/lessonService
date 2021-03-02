@@ -22,3 +22,7 @@ func (mr *muxRouter) ReturnRouter() *mux.Router {
 func (mr *muxRouter) GET(uri string, f func(rw http.ResponseWriter, r *http.Request)) {
 	mr.router.HandleFunc(uri, f).Methods("GET")
 }
+
+func (mr *muxRouter) POST(uri string, f func(rw http.ResponseWriter, r *http.Request)) {
+	mr.router.HandleFunc(uri, f).Methods("POST")
+}
