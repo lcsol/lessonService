@@ -17,10 +17,10 @@ import (
 
 func main() {
 	var (
-		conf                                 = config.Get()
+		conf                                 = config.NewConfig()
 		infoLog       *log.Logger            = log.New(os.Stdout, "INFO\t", log.Ldate|log.Ltime)
 		errLog        *log.Logger            = log.New(os.Stderr, "ERROR\t", log.Ldate|log.Ltime|log.Lshortfile)
-		client, err                          = helper.Connect(errLog, conf.MongoURL)
+		client, err                          = helper.Connect(errLog, conf.GetDatabaseURL())
 		lessonRepo    repo.LessonRepository  = repo.NewLessonCollection(client.Database(conf.Database).Collection(conf.LessonCollection))
 		getting       getting.Service        = getting.NewService(lessonRepo)
 		adding        adding.Service         = adding.NewService(lessonRepo)
