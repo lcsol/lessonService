@@ -3,11 +3,7 @@ package config
 import (
 	"flag"
 	"fmt"
-	"log"
 	"os"
-	"path/filepath"
-
-	"github.com/joho/godotenv"
 )
 
 type Config struct {
@@ -23,11 +19,6 @@ type Config struct {
 
 // NewConfig returns a Config
 func NewConfig() *Config {
-	// load environment variables from .env file
-	if err := godotenv.Load(filepath.Join("../../", ".env")); err != nil {
-		log.Println("failed to load env vars")
-		return nil
-	}
 
 	conf := &Config{}
 
@@ -54,7 +45,5 @@ func (c *Config) GetServerURL() string {
 
 // GetDatabaseURL returns the database url
 func (c *Config) GetDatabaseURL() string {
-	uri := fmt.Sprintf("mongodb+srv://%s:%s@%s/%s", c.mongoUsername, c.mongoPassword, c.mongoURI, c.Database)
-	fmt.Println(c.mongoUsername)
-	return uri
+	return fmt.Sprintf("mongodb+srv://%s:%s@%s/%s", c.mongoUsername, c.mongoPassword, c.mongoURI, c.Database)
 }
